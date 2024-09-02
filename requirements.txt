@@ -1,8 +1,2 @@
-SOON! STAY TUNED ON https://t.me/Deeplchain
-SOON! STAY TUNED ON https://t.me/Deeplchain
-SOON! STAY TUNED ON https://t.me/Deeplchain
-SOON! STAY TUNED ON https://t.me/Deeplchain
-SOON! STAY TUNED ON https://t.me/Deeplchain
-SOON! STAY TUNED ON https://t.me/Deeplchain
-SOON! STAY TUNED ON https://t.me/Deeplchain
-SOON! STAY TUNED ON https://t.me/Deeplchain
+requests==2.28.1
+colorama==0.4.6

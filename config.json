@@ -1,10 +1,11 @@
 {
-"SOON! STAY TUNED ON https://t.me/Deeplchain",
-"SOON! STAY TUNED ON https://t.me/Deeplchain",
-"SOON! STAY TUNED ON https://t.me/Deeplchain",
-"SOON! STAY TUNED ON https://t.me/Deeplchain",
-"SOON! STAY TUNED ON https://t.me/Deeplchain",
-"SOON! STAY TUNED ON https://t.me/Deeplchain",
-"SOON! STAY TUNED ON https://t.me/Deeplchain",
-"SOON! STAY TUNED ON https://t.me/Deeplchain",
-}
+    "use_proxies": false,
+    "auto_complete_task": false,
+    "auto_play_hold_coin": false,
+    "auto_spin_roulete": false,
+    "account_delay": 5,
+    "wait_time": 3600,
+    "data_file": "data.txt",
+    "proxy_file": "proxies.txt"
+  }
+  
