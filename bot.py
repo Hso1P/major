@@ -132,7 +132,7 @@ class Major:
         result = self.request("GET", url, token, proxies=proxies)
         if result:
             position = result.get("position", "Unknown")
-            log(f"{hju}Position: {pth}{position}")
+            log(f"{hju}Position: {pth}{position:,}")
             return position
         log(f"{mrh}Failed to get position information")
         return None
