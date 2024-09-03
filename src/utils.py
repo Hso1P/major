@@ -26,6 +26,7 @@ def _banner():
     print(hju + f" Major Telegram Auto Bot")
     print(mrh + f" NOT FOR SALE = Free to use")
     print(mrh + f" before start please '{hju}git pull{mrh}' to update bot")
+    log_line()
 
 def _clear():
     os.system('cls' if os.name == 'nt' else 'clear')

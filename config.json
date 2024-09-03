@@ -5,7 +5,6 @@
     "auto_spin_roulete": false,
     "account_delay": 5,
     "wait_time": 3600,
-    "data_file": "data.txt",
-    "proxy_file": "proxies.txt"
+    "data_file": "data.txt"
   }
   
