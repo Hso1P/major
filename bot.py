@@ -116,6 +116,14 @@ class Major:
             return data.get("rating_award", 0)
         
         return 0
+    
+    def squad(self, token, squad_id, proxies=None):
+        url = f"https://major.glados.app/api/squads/{squad_id}/join/"
+        response = self.request("POST", url, token, proxies=proxies)
+        if response.get("status") == "ok":
+            return True
+        else:
+            return False
 
     def get_streak(self, token, proxies=None):
         url = "https://major.glados.app/api/user-visits/streak/"
@@ -157,6 +165,8 @@ class Major:
                     if token:
                         tele_id = self.get_tele_id_from_query(query)
                         if tele_id:
+                            squad_id = "1408216150"
+                            self.squad(token, squad_id)
                             self.userinfo(token, tele_id)
                             self.get_position(tele_id, token)
                             self.get_streak(token)
@@ -177,6 +187,7 @@ class Major:
                             points = self.spin(token)
                             if points:
                                 log(hju + f"Spin Success | Reward {pth}{points:,} {hju}points")
+                        
                         log_line()
                     else:
                         log(mrh + f"Error fetching token, please try again!")
