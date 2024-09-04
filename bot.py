@@ -52,6 +52,8 @@ class Major:
         result = self.request("POST", url, token, proxies=proxies)
         if result:
             return result.get("is_increased", False)
+        else:
+            log(f"Already Check-in failed!")
         return False
 
     def get_task(self, token, task_type, proxies=None):
@@ -170,8 +172,11 @@ class Major:
                             self.userinfo(token, tele_id)
                             self.get_position(tele_id, token)
                             self.get_streak(token)
-                        self.check_in(token)
-                        
+                            if self.check_in(token):
+                                log(f"{hju}Checkin Successfully")
+                            else:
+                                log(f"{mrh}Already Checkin Today ")
+  
                         if self.auto_do_task:
                             tasks = self.get_task(token, "true") + self.get_task(token, "false")
                             for task in tasks:
