@@ -111,4 +111,4 @@ python major_bot.py
 This project is licensed under the MIT License. See the LICENSE file for details.
 
 ## Contact
-For questions or support, please contact t.me/itsjaw_real
+For questions or support, please contact [ https://t.me/DeeplChainSup ]
