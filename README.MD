@@ -60,7 +60,7 @@ To use this bot, you need to register it with the Major Telegram Bot.
     The `config.json` file should be in the root directory of the project. Here is a sample configuration:
 
     ```json
-{
+    {
     "use_proxies": true,
     "auto_complete_task": true,
     "auto_play_game": true,
@@ -68,7 +68,7 @@ To use this bot, you need to register it with the Major Telegram Bot.
     "game_delay": 3,
     "wait_time": 3600,
     "data_file": "data.txt"
-}
+    }
 
     ```
 
