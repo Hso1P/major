@@ -68,7 +68,8 @@ To use this bot, you need to register it with the Major Telegram Bot.
     "game_delay": 3,
     "wait_time": 3600,
     "data_file": "data.txt"
-  }
+}
+
     ```
 
     - `auto_complete_task`: Whether to automatically complete tasks.
