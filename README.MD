@@ -19,6 +19,7 @@ To use this bot, you need to register it with the Major Telegram Bot.
 - **Task Management**: Retrieve and complete daily tasks.
 - **Coin Holding**: Play the hold coin game with a random amount.
 - **Spin**: Spin the roulette and handle various responses.
+- **Swipe Coin**: Swipe coin on the screen and claim coin rewards.
 - **User Info**: Retrieve user information including balance and position.
 
 ## Requirements
@@ -59,22 +60,22 @@ To use this bot, you need to register it with the Major Telegram Bot.
     The `config.json` file should be in the root directory of the project. Here is a sample configuration:
 
     ```json
-    {
-        "use_proxies": false,
-        "auto_complete_task": false,
-        "auto_play_hold_coin": false,
-        "auto_spin_roulete": false,
-        "account_delay": 5,
-        "wait_time": 3600,
-        "data_file": "data.txt"
-    }
+{
+    "use_proxies": true,
+    "auto_complete_task": true,
+    "auto_play_game": true,
+    "account_delay": 5,
+    "game_delay": 3,
+    "wait_time": 3600,
+    "data_file": "data.txt"
+  }
     ```
 
     - `auto_complete_task`: Whether to automatically complete tasks.
-    - `auto_play_hold_coin`: Whether to automatically play the hold coin game.
-    - `auto_spin_roulete`: Whether to automatically spin the roulette.
+    - `auto_play_game`: Whether to automatically play the All Game.
     - `account_delay`: Delay between processing each account (in seconds).
     - `wait_time`: Delay between processing all accounts (in seconds).
+    - `game_delay`: Delay between processing for Each Game (in seconds)
     - `data_file`: File containing account data.
 
 2. **Create a `proxies.txt` file**

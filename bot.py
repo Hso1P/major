@@ -16,10 +16,10 @@ class Major:
         with open(config_file, 'r') as f:
             config = json.load(f)
         self.auto_do_task = config.get('auto_complete_task', False)
-        self.auto_play_hold_coin = config.get('auto_play_hold_coin', False)
-        self.auto_spin = config.get('auto_spin_roulete', False)
+        self.auto_play_game = config.get('auto_play_game', False)
         self.wait_time = config.get('wait_time', 3600)
         self.account_delay = config.get('account_delay', 5)
+        self.game_delay = config.get('game_delay', 3)
         self.data_file = config.get('data_file', 'data.txt')
         self.proxies = self.load_proxies('proxies.txt')
 
@@ -85,9 +85,9 @@ class Major:
         log(f"{mrh}Failed to fetch user info")
         return None
 
-    def hold_coin(self, token, coins, proxies=None):
+    def hold_coin(self, token, coins_hold, proxies=None):
         url = "https://major.glados.app/api/bonuses/coins/"
-        payload = {"coins": coins}
+        payload = {"coins": coins_hold}
         data = self.request("POST", url, token, proxies=proxies, json=payload)
         
         if data:
@@ -102,15 +102,43 @@ class Major:
                 log(hju + f"Hold Coin blocked until: {pth}{blocked_until_time}")
             
         return False
-
-    def spin(self, token, proxies=None):
-        url = "https://major.glados.app/api/roulette"
-        data = self.request("POST", url, token, proxies=proxies)
+    
+    def swipe_coin(self, token, coins_swipe, proxies=None):
+        url = "https://major.glados.app/api/swipe_coin/"
+        payload = {"coins": coins_swipe}
+        data = self.request("POST", url, token, proxies=proxies, json=payload)
         
         if data:
+            if data.get("success", False):
+                return True
+
             detail = data.get("detail", {})
             blocked_until = detail.get("blocked_until")
             
+            if blocked_until is not None:
+                blocked_until_time = datetime.fromtimestamp(blocked_until).strftime('%Y-%m-%d %H:%M:%S')
+                log(hju + f"Swipe Coin blocked until: {pth}{blocked_until_time}")
+            
+        return False
+
+    def spin(self, token, proxies=None):
+        url = "https://major.glados.app/api/roulette/"
+        data = self.request("POST", url, token, proxies=proxies)
+        
+        if isinstance(data, str):
+            try:
+                data = json.loads(data)
+            except json.JSONDecodeError as e:
+                log(kng + f"Error parsing response as JSON: {str(e)}")
+                return 0
+
+        if data:
+            if data.get("success", False):
+                return True
+
+            detail = data.get("detail", {})
+            blocked_until = detail.get("blocked_until")
+
             if blocked_until is not None:
                 blocked_until_time = datetime.fromtimestamp(blocked_until).strftime('%Y-%m-%d %H:%M:%S')
                 log(hju + f"Spin blocked until: {pth}{blocked_until_time}")
@@ -176,23 +204,29 @@ class Major:
                                 log(f"{hju}Checkin Successfully")
                             else:
                                 log(f"{mrh}Already Checkin Today ")
-  
+                        
                         if self.auto_do_task:
                             tasks = self.get_task(token, "true") + self.get_task(token, "false")
                             for task in tasks:
                                 task_name = task.get("title", "").replace("\n", "")
                                 completed = self.do_task(token, task.get("id", ""))
                                 log(f"{f'{hju}Completed' if completed else f'{mrh}Incomplete'} {pth}{task_name}")
-                        if self.auto_play_hold_coin:
-                            coins = random.randint(800, 900)
-                            success = self.hold_coin(token, coins)
+
+                        if self.auto_play_game:
+                            coins_hold = random.randint(800, 915)
+                            success = self.hold_coin(token, coins_hold)
                             if success:
-                                log(hju + f"Success Hold Coin | Reward {pth}{coins} {hju}Coins")
-                        if self.auto_spin:
-                            points = self.spin(token)
-                            if points:
-                                log(hju + f"Spin Success | Reward {pth}{points:,} {hju}points")
-                        
+                                log(hju + f"Success Hold Coin | Reward {pth}{coins_hold} {hju}Coins")
+                                countdown_timer(self.game_delay)
+                            coins_swipe = random.randint(1900, 2400)
+                            success = self.swipe_coin(token, coins_swipe)
+                            if success:
+                                log(hju + f"Success Swipe Coin | Reward {pth}{coins_swipe} {hju}Coins")
+                                countdown_timer(self.game_delay)
+                            auto_spin = self.spin(token)
+                            if auto_spin:
+                                log(hju + f"Spin Success | Reward {pth}{auto_spin:,} {hju}points")
+                                
                         log_line()
                     else:
                         log(mrh + f"Error fetching token, please try again!")
